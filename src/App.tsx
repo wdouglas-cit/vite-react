@@ -1,47 +1,27 @@
-import { useState, useEffect } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [subdomainContent, setSubdomainContent] = useState<string>('');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
-  useEffect(() => {
-    // Obtendo o subdomínio a partir da URL
-    const hostname = window.location.hostname;
-    const subdomain = hostname.split('.')[0]; // Pega a parte do subdomínio
-
-    // Definindo o conteúdo com base no subdomínio
-    switch (subdomain) {
-      case 'app1':
-        setSubdomainContent('Conteúdo para App 1');
-        break;
-      case 'app2':
-        setSubdomainContent('Conteúdo para App 2');
-        break;
-      default:
-        setSubdomainContent('Conteúdo padrão para subdomínios não reconhecidos');
-    }
-  }, []);
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className={theme}>
+      <div className="container">
+        <h1>{theme === 'light' ? 'Tema Claro' : 'Tema Escuro'}</h1>
+        <p>
+          {theme === 'light'
+            ? 'Você está usando o tema claro! Clique no botão abaixo para mudar para o tema escuro.'
+            : 'Você está usando o tema escuro! Clique no botão abaixo para mudar para o tema claro.'}
+        </p>
+        <button onClick={toggleTheme}>
+          Mudar para {theme === 'light' ? 'Escuro' : 'Claro'}
+        </button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <p>{subdomainContent}</p>
-      </div>
-      <p className="read-the-docs">
-        Clique nos logos do Vite e do React para saber mais
-      </p>
-    </>
+    </div>
   );
 }
 
