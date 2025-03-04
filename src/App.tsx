@@ -1,10 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [subdomainContent, setSubdomainContent] = useState<string>('');
+
+  useEffect(() => {
+    // Obtendo o subdomínio a partir da URL
+    const hostname = window.location.hostname;
+    const subdomain = hostname.split('.')[0]; // Pega a parte do subdomínio
+
+    // Definindo o conteúdo com base no subdomínio
+    switch (subdomain) {
+      case 'app1':
+        setSubdomainContent('Conteúdo para App 1');
+        break;
+      case 'app2':
+        setSubdomainContent('Conteúdo para App 2');
+        break;
+      default:
+        setSubdomainContent('Conteúdo padrão para subdomínios não reconhecidos');
+    }
+  }, []);
 
   return (
     <>
@@ -18,18 +36,13 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <p>{subdomainContent}</p>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        Clique nos logos do Vite e do React para saber mais
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
