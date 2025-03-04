@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react'; // Importando apenas useState
 import './App.css';
 
 function App() {
